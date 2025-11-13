@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_first"
+        android:icon="@android:drawable/ic_secure"
+        android:title="Filmek" />
+
+    <item
+        android:id="@+id/nav_second"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="Sorozatok" />
+
+    <item
+        android:id="@+id/nav_third"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Kedvencek" />
+
+</menu>
