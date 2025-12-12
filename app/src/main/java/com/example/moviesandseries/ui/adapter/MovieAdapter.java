@@ -20,6 +20,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Context context;
     private List<Movie> movieList;
+    public interface OnMovieClickListener {
+        void onMovieClick(Movie movie);
+    }
+
+    private OnMovieClickListener listener;
+
+    public void setOnMovieClickListener(OnMovieClickListener listener) {
+        this.listener = listener;
+    }
 
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
@@ -41,6 +50,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         // TMDB kép URL
         String imageUrl = "https://image.tmdb.org/t/p/w500" + movie.getPosterPath();
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onMovieClick(movie);
+            }
+        });
 
         Glide.with(context)
                 .load(imageUrl)

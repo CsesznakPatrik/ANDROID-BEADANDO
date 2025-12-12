@@ -44,6 +44,19 @@ public class MoviesList extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MovieAdapter(getContext(), movieList);
+        adapter.setOnMovieClickListener(movie -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("movie", movie);
+
+            MovieDetails fragment = new MovieDetails();
+            fragment.setArguments(bundle);
+
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
         recyclerView.setAdapter(adapter);
 
         loadMovies();
@@ -54,7 +67,7 @@ public class MoviesList extends Fragment {
     private void loadMovies() {
         ApiService api = RetrofitClient.getInstance().create(ApiService.class);
 
-        api.getPopularMovies(API_KEY, "en-US", 1)
+        api.getPopularMovies(API_KEY, "hu-HU", 1)
                 .enqueue(new Callback<TmdbResponse>() {
                     @Override
                     public void onResponse(Call<TmdbResponse> call, Response<TmdbResponse> response) {
