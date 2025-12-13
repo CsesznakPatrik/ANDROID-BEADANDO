@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.moviesandseries.api.model.AppDatabase;
+import com.example.moviesandseries.api.model.Favorite;
 import com.example.moviesandseries.api.model.Movie;
 
 public class MovieDetails extends Fragment {
@@ -45,6 +47,18 @@ public class MovieDetails extends Fragment {
 
         favoritesBtn.setOnClickListener(v -> {
             // Itt fogjuk elmenteni kedvencekbe
+            Favorite fav = new Favorite();
+            fav.title = movie.getTitle();
+            fav.posterPath = movie.getPosterPath();
+            fav.movie = movie.getOverview();
+            fav.movie = "movie";
+
+            new Thread(() -> {
+                AppDatabase
+                        .getDatabase(requireContext())
+                        .favoriteDao()
+                        .insert(fav);
+            }).start();
             Toast.makeText(getContext(), movie.getTitle() + " Hozzáadva a kedvencekhez!", Toast.LENGTH_SHORT).show();
         });
 
